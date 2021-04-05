@@ -120,7 +120,7 @@ namespace Skybrud.Social.Google.Places.Models {
         /// <summary>
         /// Gets whether the rating has a value.
         /// </summary>
-        public bool HasRating => Rating < float.Epsilon;
+        public bool HasRating => Rating > float.Epsilon;
 
         /// <summary>
         /// Decprecated in favor of <see cref="PlaceId"/>.
