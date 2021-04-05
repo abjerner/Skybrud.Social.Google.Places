@@ -16,7 +16,7 @@ namespace Skybrud.Social.Google.Places.Models {
         /// <summary>
         /// Gets an array of places returned in the response.
         /// </summary>
-        public PlacesDetailsResult[] Results { get; private set; }
+        public PlacesDetails[] Results { get; private set; }
 
         /// <summary>
         /// Gets the status of the response from the Places API.
@@ -29,7 +29,7 @@ namespace Skybrud.Social.Google.Places.Models {
 
         private PlacesNearbySearchResponseBody(JObject obj) : base(obj) {
             NextPageToken = obj.GetString("next_page_token");    
-            Results = obj.GetArrayItems("results", PlacesDetailsResult.Parse);
+            Results = obj.GetArrayItems("results", PlacesDetails.Parse);
             Status = obj.GetEnum<PlacesResponseStatusCode>("status");
         }
 

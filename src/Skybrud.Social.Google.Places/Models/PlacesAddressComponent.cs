@@ -5,7 +5,7 @@ using Skybrud.Social.Google.Models;
 namespace Skybrud.Social.Google.Places.Models {
 
     /// <summary>
-    /// Class representing an address component of a <see cref="PlacesDetailsResult"/>.
+    /// Class representing an address component of a <see cref="PlacesDetails"/>.
     /// </summary>
     public class PlacesAddressComponent : GoogleApiObject {
 

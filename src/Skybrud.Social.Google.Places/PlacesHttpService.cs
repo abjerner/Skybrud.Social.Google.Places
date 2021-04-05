@@ -43,24 +43,24 @@ namespace Skybrud.Social.Google.Places {
         /// Gets details about the place with the specified <paramref name="placeId"/>.
         /// </summary>
         /// <param name="placeId">The ID of the place</param>
-        /// <returns>An instance of <see cref="PlacesGetDetailsResponse"/> representing the response.</returns>
+        /// <returns>An instance of <see cref="PlacesDetailsResponse"/> representing the response.</returns>
         /// <see>
         ///     <cref>https://developers.google.com/places/web-service/details</cref>
         /// </see>
-        public PlacesGetDetailsResponse GetDetails(string placeId) {
-            return new PlacesGetDetailsResponse(Client.GetDetails(placeId));
+        public PlacesDetailsResponse GetDetails(string placeId) {
+            return new PlacesDetailsResponse(Client.GetDetails(placeId));
         }
 
         /// <summary>
         /// Gets details about the place matching the specified <paramref name="options"/>.
         /// </summary>
         /// <param name="options">The options for the call to the API.</param>
-        /// <returns>An instance of <see cref="PlacesGetDetailsResponse"/> representing the response.</returns>
+        /// <returns>An instance of <see cref="PlacesDetailsResponse"/> representing the response.</returns>
         /// <see>
         ///     <cref>https://developers.google.com/places/web-service/details</cref>
         /// </see>
-        public PlacesGetDetailsResponse GetDetails(PlacesGetDetailsOptions options) {
-            return new PlacesGetDetailsResponse(Client.GetDetails(options));
+        public PlacesDetailsResponse GetDetails(PlacesGetDetailsOptions options) {
+            return new PlacesDetailsResponse(Client.GetDetails(options));
         }
 
         /// <summary>

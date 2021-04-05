@@ -3,6 +3,9 @@ using Skybrud.Social.Google.Places.Models;
 
 namespace Skybrud.Social.Google.Places.Responses {
 
+    /// <summary>
+    /// Class representing the response of a nearby search in the Google Places API.
+    /// </summary>
     public class PlacesNearbySearchResponse : PlacesResponse<PlacesNearbySearchResponseBody> {
 
         /// <summary>

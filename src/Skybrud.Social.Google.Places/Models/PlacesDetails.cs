@@ -7,9 +7,9 @@ using Skybrud.Social.Google.Models;
 namespace Skybrud.Social.Google.Places.Models {
 
     /// <summary>
-    /// Class representing a result received from the Google Places API.
+    /// Class representing details about a place as received from the Google Places API.
     /// </summary>
-    public class PlacesDetailsResult : GoogleApiObject {
+    public class PlacesDetails : GoogleApiObject {
 
         #region Properties
 
@@ -113,9 +113,14 @@ namespace Skybrud.Social.Google.Places.Models {
         public bool HasPriceLevel => PriceLevel != PlacesPriceLevel.Unspecified;
 
         /// <summary>
-        /// Gets the the place's rating, from <c>1.0</c> to <c>5.0</c>, based on aggregated user reviews.
+        /// Gets the the place's rating, from <c>1.0</c> to <c>5.0</c>, based on aggregated user reviews. Not all places have a rating.
         /// </summary>
         public float Rating { get; }
+
+        /// <summary>
+        /// Gets whether the rating has a value.
+        /// </summary>
+        public bool HasRating => Rating < float.Epsilon;
 
         /// <summary>
         /// Decprecated in favor of <see cref="PlaceId"/>.
@@ -164,7 +169,7 @@ namespace Skybrud.Social.Google.Places.Models {
 
         #region Constructors
 
-        private PlacesDetailsResult(JObject obj) : base(obj) {
+        private PlacesDetails(JObject obj) : base(obj) {
             AddressComponents = obj.GetArray("address_components", PlacesAddressComponent.Parse);
             AdrAddress = obj.GetString("adr_address");
             BusinessStatus = obj.GetString("business_status", ParseBusinessStatus);
@@ -205,9 +210,9 @@ namespace Skybrud.Social.Google.Places.Models {
         /// Gets a user from the specified <c>obj</c>.
         /// </summary>
         /// <param name="obj">The instance of <see cref="JObject"/> to parse.</param>
-        /// <returns>Returns an instance of <see cref="PlacesDetailsResult"/> representing the place.</returns>
-        public static PlacesDetailsResult Parse(JObject obj) {
-            return obj == null ? null : new PlacesDetailsResult(obj);
+        /// <returns>Returns an instance of <see cref="PlacesDetails"/> representing the place.</returns>
+        public static PlacesDetails Parse(JObject obj) {
+            return obj == null ? null : new PlacesDetails(obj);
         }
 
         #endregion

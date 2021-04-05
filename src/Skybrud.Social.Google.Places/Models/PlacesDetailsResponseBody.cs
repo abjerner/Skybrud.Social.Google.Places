@@ -5,16 +5,16 @@ using Skybrud.Social.Google.Models;
 namespace Skybrud.Social.Google.Places.Models {
     
     /// <summary>
-    /// Class representing the response body of a call to get the details about a place in the Google Places API.
+    /// Class representing the response body of a response about a place in the Google Places API.
     /// </summary>
-    public class PlacesGetDetailsResponseBody : GoogleApiObject {
+    public class PlacesDetailsResponseBody : GoogleApiObject {
 
         #region Properties
 
         /// <summary>
         /// Gets the place returned in the response.
         /// </summary>
-        public PlacesDetailsResult Result { get; }
+        public PlacesDetails Result { get; }
 
         /// <summary>
         /// Gets the status of the response from the Places API.
@@ -25,8 +25,8 @@ namespace Skybrud.Social.Google.Places.Models {
 
         #region Constructors
 
-        private PlacesGetDetailsResponseBody(JObject obj) : base(obj) {
-            Result = obj.GetObject("result", PlacesDetailsResult.Parse);
+        private PlacesDetailsResponseBody(JObject obj) : base(obj) {
+            Result = obj.GetObject("result", PlacesDetails.Parse);
             Status = obj.GetEnum<PlacesResponseStatusCode>("status");
         }
 
@@ -35,12 +35,12 @@ namespace Skybrud.Social.Google.Places.Models {
         #region Static methods
 
         /// <summary>
-        /// Parses the specified <paramref name="obj"/> into an instance of <see cref="PlacesGetDetailsResponseBody"/>.
+        /// Parses the specified <paramref name="obj"/> into an instance of <see cref="PlacesDetailsResponseBody"/>.
         /// </summary>
         /// <param name="obj">The instance of <see cref="JObject"/> to parse.</param>
-        /// <returns>An instance of <see cref="PlacesGetDetailsResponseBody"/>.</returns>
-        public static PlacesGetDetailsResponseBody Parse(JObject obj) {
-            return obj == null ? null : new PlacesGetDetailsResponseBody(obj);
+        /// <returns>An instance of <see cref="PlacesDetailsResponseBody"/>.</returns>
+        public static PlacesDetailsResponseBody Parse(JObject obj) {
+            return obj == null ? null : new PlacesDetailsResponseBody(obj);
         }
 
         #endregion

@@ -6,7 +6,7 @@ using Skybrud.Social.Google.Models;
 namespace Skybrud.Social.Google.Places.Models {
 
     /// <summary>
-    /// Class representing a point within a <see cref="PlacesDetailsResult"/>.
+    /// Class representing a point within a <see cref="PlacesDetails"/>.
     /// </summary>
     public class PlacesGeometryLocation : GoogleApiObject, IPoint {
 
