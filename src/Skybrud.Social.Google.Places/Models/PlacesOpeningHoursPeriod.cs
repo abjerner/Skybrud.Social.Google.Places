@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Extensions;
+﻿using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json.Linq;
+using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models;
@@ -11,12 +12,14 @@ public class PlacesOpeningHoursPeriod : GoogleObject {
 
     #region Properties
 
-    public PlacesOpeningHoursPeriodItem Open { get; }
+    public PlacesOpeningHoursPeriodItem? Open { get; }
 
+    [MemberNotNullWhen(true, "Open")]
     public bool HasOpen => Open != null;
 
-    public PlacesOpeningHoursPeriodItem Close { get; }
+    public PlacesOpeningHoursPeriodItem? Close { get; }
 
+    [MemberNotNullWhen(true, "Close")]
     public bool HasClose => Close != null;
 
     #endregion
@@ -38,7 +41,7 @@ public class PlacesOpeningHoursPeriod : GoogleObject {
     /// <param name="obj">The instance of <see cref="JObject"/> to parse.</param>
     /// <returns>An instance of <see cref="PlacesOpeningHoursPeriod"/>.</returns>
     public static PlacesOpeningHoursPeriod Parse(JObject obj) {
-        return obj == null ? null : new PlacesOpeningHoursPeriod(obj);
+        return new PlacesOpeningHoursPeriod(obj);
     }
 
     #endregion

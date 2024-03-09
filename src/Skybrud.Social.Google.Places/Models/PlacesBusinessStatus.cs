@@ -7,11 +7,6 @@
 public enum PlacesBusinessStatus {
 
     /// <summary>
-    /// Indicatest that the <c>business_status</c> property was not returned by the API.
-    /// </summary>
-    Unspecified,
-
-    /// <summary>
     /// Indicatest hat the place is operational.
     /// </summary>
     Operational,

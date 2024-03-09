@@ -7,11 +7,6 @@
 public enum PlacesPriceLevel {
 
     /// <summary>
-    /// Indicates that the price level of a place wasn't specified.
-    /// </summary>
-    Unspecified,
-
-    /// <summary>
     /// Indicates that a place is in the <strong>Free</strong> price range.
     /// </summary>
     Free,

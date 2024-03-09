@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Extensions;
+﻿using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json.Linq;
+using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models;
@@ -8,8 +9,9 @@ public class PlacesTextSearchResponseBody : GoogleObject {
 
     #region Properties
 
-    public string NextPageToken { get; }
+    public string? NextPageToken { get; }
 
+    [MemberNotNullWhen(true, "NextPageToken")]
     public bool HasNextPageToken {
         get { return string.IsNullOrWhiteSpace(NextPageToken) == false; }
     }
@@ -44,7 +46,7 @@ public class PlacesTextSearchResponseBody : GoogleObject {
     /// <param name="obj">The instance of <see cref="JObject"/> to parse.</param>
     /// <returns>An instance of <see cref="PlacesTextSearchResponseBody"/>.</returns>
     public static PlacesTextSearchResponseBody Parse(JObject obj) {
-        return obj == null ? null : new PlacesTextSearchResponseBody(obj);
+        return new PlacesTextSearchResponseBody(obj);
     }
 
     #endregion

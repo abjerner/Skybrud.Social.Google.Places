@@ -1,4 +1,5 @@
-﻿using Skybrud.Essentials.Common;
+﻿using System.Diagnostics.CodeAnalysis;
+using Skybrud.Essentials.Common;
 using Skybrud.Essentials.Http;
 using Skybrud.Essentials.Http.Collections;
 using Skybrud.Essentials.Http.Options;
@@ -15,14 +16,18 @@ public class PlacesGetDetailsOptions : IHttpRequestOptions {
     /// <summary>
     /// Gets or sets the ID of the place to retrieve details about.
     /// </summary>
-    public string PlaceId { get; set; }
+#if NET8_0_OR_GREATER
+    public required string PlaceId { get; set; }
+#else
+    public string? PlaceId { get; set; }
+#endif
 
     /// <summary>
     /// Optional: Gets or sets the language code, indicating in which language the results should be returned, if
     /// possible. See the <a href="https://developers.google.com/maps/faq#languagesupport">list of supported
     /// languages</a> and their codes.
     /// </summary>
-    public string Language { get; set; }
+    public string? Language { get; set; }
 
     #endregion
 
@@ -37,6 +42,9 @@ public class PlacesGetDetailsOptions : IHttpRequestOptions {
     /// Initializes a new instance based on the specified <paramref name="placeId"/>.
     /// </summary>
     /// <param name="placeId">The ID of the place.</param>
+#if NET8_0_OR_GREATER
+    [SetsRequiredMembers]
+#endif
     public PlacesGetDetailsOptions(string placeId) {
         PlaceId = placeId;
     }

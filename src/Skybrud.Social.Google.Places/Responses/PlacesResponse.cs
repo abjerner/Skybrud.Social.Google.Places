@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Http;
 using Skybrud.Social.Google.Places.Exceptions;
-using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 
 namespace Skybrud.Social.Google.Places.Responses;
 
@@ -24,14 +24,14 @@ public class PlacesResponse : HttpResponseBase {
 
         JObject obj = ParseJsonObject(response.Body);
 
-        JObject error = obj.GetObject("error");
+        JObject? error = obj.GetObject("error");
 
         int code = error.GetInt32("code");
-        string message = error.GetString("message");
+        string? message = error.GetString("message");
 
         // TODO: Parse "errors"
 
-        throw new PlacesHttpException(response, code, message);
+        throw new PlacesHttpException(response, code, message!);
 
     }
 
@@ -47,7 +47,7 @@ public class PlacesResponse<T> : PlacesResponse {
     /// <summary>
     /// Gets the body of the response.
     /// </summary>
-    public T Body { get; protected set; }
+    public T Body { get; protected set; } = default!;
 
     /// <summary>
     /// Initializes a new instance based on the specified <paramref name="response"/>.

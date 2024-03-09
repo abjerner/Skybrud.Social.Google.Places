@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Essentials.Maps.Geometry;
 using Skybrud.Social.Google.Models;
 
@@ -41,7 +41,7 @@ public class PlacesGeometryLocation : GoogleObject, IPoint {
     /// <param name="obj">The instance of <see cref="JObject"/> representing the location.</param>
     /// <returns>An instance of <see cref="PlacesGeometryLocation"/>.</returns>
     public static PlacesGeometryLocation Parse(JObject obj) {
-        return obj == null ? null : new PlacesGeometryLocation(obj);
+        return new PlacesGeometryLocation(obj);
     }
 
     #endregion

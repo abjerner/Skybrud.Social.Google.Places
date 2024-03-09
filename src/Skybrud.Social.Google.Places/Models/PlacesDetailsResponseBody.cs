@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models;
@@ -26,7 +26,7 @@ public class PlacesDetailsResponseBody : GoogleObject {
     #region Constructors
 
     private PlacesDetailsResponseBody(JObject obj) : base(obj) {
-        Result = obj.GetObject("result", PlacesDetails.Parse);
+        Result = obj.GetObject("result", PlacesDetails.Parse)!;
         Status = obj.GetEnum<PlacesResponseStatusCode>("status");
     }
 
@@ -40,7 +40,7 @@ public class PlacesDetailsResponseBody : GoogleObject {
     /// <param name="obj">The instance of <see cref="JObject"/> to parse.</param>
     /// <returns>An instance of <see cref="PlacesDetailsResponseBody"/>.</returns>
     public static PlacesDetailsResponseBody Parse(JObject obj) {
-        return obj == null ? null : new PlacesDetailsResponseBody(obj);
+        return new PlacesDetailsResponseBody(obj);
     }
 
     #endregion

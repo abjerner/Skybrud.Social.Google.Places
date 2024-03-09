@@ -1,7 +1,7 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Enums;
-using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models;
@@ -27,15 +27,15 @@ public class PlacesDetails : GoogleObject {
     public string AdrAddress { get; }
 
     /// <summary>
-    /// Gets the operational status of the place, if it is a business. If no data exists, the value of this
-    /// property will be <see cref="PlacesBusinessStatus.Unspecified"/>.
+    /// Gets the operational status of the place, if it is a business.
     /// </summary>
-    public PlacesBusinessStatus BusinessStatus { get; }
+    public PlacesBusinessStatus? BusinessStatus { get; }
 
     /// <summary>
     /// Gets whether a business status is available for this place.
     /// </summary>
-    public bool HasPlacesBusinessStatus => BusinessStatus != PlacesBusinessStatus.Unspecified;
+    [MemberNotNullWhen(true, "BusinessStatus")]
+    public bool HasPlacesBusinessStatus => BusinessStatus is not null;
 
     /// <summary>
     /// Gets a a string containing the human-readable address of this place. Often this address is equivalent to
@@ -82,11 +82,12 @@ public class PlacesDetails : GoogleObject {
     /// Gets information about the opening hours of the place. Use the <see cref="HasOpeningHours"/> property to
     /// see whether opening hours has been specified for the place.
     /// </summary>
-    public PlacesOpeningHours OpeningHours { get; }
+    public PlacesOpeningHours? OpeningHours { get; }
 
     /// <summary>
     /// Gets whether opening hours has been specified for the place.
     /// </summary>
+    [MemberNotNullWhen(true, "OpeningHours")]
     public bool HasOpeningHours => OpeningHours != null;
 
     /// <summary>
@@ -105,12 +106,13 @@ public class PlacesDetails : GoogleObject {
     /// Gets the price level of the place, on a scale of <c>0</c> to <c>4</c>. The exact amount
     /// indicated by a specific value will vary from region to region.
     /// </summary>
-    public PlacesPriceLevel PriceLevel { get; }
+    public PlacesPriceLevel? PriceLevel { get; }
 
     /// <summary>
     /// Indicates whether a price level (see <see cref="PriceLevel"/>) was specified for the place.
     /// </summary>
-    public bool HasPriceLevel => PriceLevel != PlacesPriceLevel.Unspecified;
+    [MemberNotNullWhen(true, "PriceLevel")]
+    public bool HasPriceLevel => PriceLevel  != null;
 
     /// <summary>
     /// Gets the the place's rating, from <c>1.0</c> to <c>5.0</c>, based on aggregated user reviews. Not all places have a rating.
@@ -158,11 +160,12 @@ public class PlacesDetails : GoogleObject {
     /// <summary>
     /// Gets the authoritative website for this place, such as a business' homepage.
     /// </summary>
-    public string Website { get; }
+    public string? Website { get; }
 
     /// <summary>
     /// Gets whether a website was specified for the place (whether the <see cref="Website"/> property has a value).
     /// </summary>
+    [MemberNotNullWhen(true, "Website")]
     public bool HasWebsite => string.IsNullOrWhiteSpace(Website) == false;
 
     #endregion
@@ -170,36 +173,27 @@ public class PlacesDetails : GoogleObject {
     #region Constructors
 
     private PlacesDetails(JObject obj) : base(obj) {
-        AddressComponents = obj.GetArray("address_components", PlacesAddressComponent.Parse);
-        AdrAddress = obj.GetString("adr_address");
-        BusinessStatus = obj.GetString("business_status", ParseBusinessStatus);
-        FormattedAddress = obj.GetString("formatted_address");
-        FormattedPhoneNumber = obj.GetString("formatted_phone_number");
-        Geometry = obj.GetObject("geometry", PlacesGeometry.Parse);
-        Icon = obj.GetString("icon");
-        InternationalPhoneNumber = obj.GetString("international_phone_number");
-        Name = obj.GetString("name");
+        AddressComponents = obj.GetArrayItems("address_components", PlacesAddressComponent.Parse);
+        AdrAddress = obj.GetString("adr_address")!;
+        BusinessStatus = obj.GetEnumOrNull<PlacesBusinessStatus>("business_status");
+        FormattedAddress = obj.GetString("formatted_address")!;
+        FormattedPhoneNumber = obj.GetString("formatted_phone_number")!;
+        Geometry = obj.GetObject("geometry", PlacesGeometry.Parse)!;
+        Icon = obj.GetString("icon")!;
+        InternationalPhoneNumber = obj.GetString("international_phone_number")!;
+        Name = obj.GetString("name")!;
         OpeningHours = obj.GetObject("opening_hours", PlacesOpeningHours.Parse);
         HasPermanentlyClosed = obj.GetBoolean("permanently_closed");
-        PlaceId = obj.GetString("place_id");
-        PriceLevel = obj.HasValue("price_level") ? obj.GetEnum<PlacesPriceLevel>("price_level") : PlacesPriceLevel.Unspecified;
+        PlaceId = obj.GetString("place_id")!;
+        PriceLevel = obj.GetEnumOrNull<PlacesPriceLevel>("price_level");
         Rating = obj.GetFloat("rating");
-        Reference = obj.GetString("reference");
-        Scope = obj.GetString("scope");
+        Reference = obj.GetString("reference")!;
+        Scope = obj.GetString("scope")!;
         Types = obj.GetStringArray("types");
-        Url = obj.GetString("url");
+        Url = obj.GetString("url")!;
         UtcOffset = obj.GetDouble("utc_offset", TimeSpan.FromMinutes);
-        Vicinity = obj.GetString("vicinity");
+        Vicinity = obj.GetString("vicinity")!;
         Website = obj.GetString("website");
-    }
-
-    #endregion
-
-    #region Member methods
-
-    private PlacesBusinessStatus ParseBusinessStatus(string value) {
-        if (string.IsNullOrWhiteSpace(value)) return PlacesBusinessStatus.Unspecified;
-        return EnumUtils.ParseEnum<PlacesBusinessStatus>(value);
     }
 
     #endregion
@@ -212,7 +206,7 @@ public class PlacesDetails : GoogleObject {
     /// <param name="obj">The instance of <see cref="JObject"/> to parse.</param>
     /// <returns>Returns an instance of <see cref="PlacesDetails"/> representing the place.</returns>
     public static PlacesDetails Parse(JObject obj) {
-        return obj == null ? null : new PlacesDetails(obj);
+        return new PlacesDetails(obj);
     }
 
     #endregion

@@ -40,24 +40,24 @@ public class PlacesNearbySearchOptions : IHttpRequestOptions {
     /// <summary>
     /// Optional: Gets or sets a term to be matched against all content that Google has indexed for this place, including but not limited to name, type, and address, as well as customer reviews and other third-party content.
     /// </summary>
-    public string Keyword { get; set; }
+    public string? Keyword { get; set; }
 
     /// <summary>
     /// Optional: Gets or sets the language code, indicating in which language the results should be returned, if
     /// possible. See the <a href="https://developers.google.com/maps/faq#languagesupport">list of supported
     /// languages</a> and their codes.
     /// </summary>
-    public string Language { get; set; }
+    public string? Language { get; set; }
 
     /// <summary>
     /// Optional: Gets or sets the minimum price level of the places that should be returned by the search.
     /// </summary>
-    public PlacesPriceLevel MinPrice { get; set; }
+    public PlacesPriceLevel? MinPrice { get; set; }
 
     /// <summary>
     /// Optional: Gets or sets the maximum price level of the places that should be returned by the search.
     /// </summary>
-    public PlacesPriceLevel MaxPrice { get; set; }
+    public PlacesPriceLevel? MaxPrice { get; set; }
 
     /// <summary>
     /// Gets or sets a term to be matched against all content that Google has indexed for this place. Equivalent to
@@ -66,7 +66,7 @@ public class PlacesNearbySearchOptions : IHttpRequestOptions {
     ///
     /// Google recommends using only the <see cref="Keyword"/> parameter for all search terms.
     /// </summary>
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Specifies the order in which results are listed. Note that <see cref="RankBy"/> must not be included if
@@ -80,21 +80,21 @@ public class PlacesNearbySearchOptions : IHttpRequestOptions {
     /// specified location. When <see cref="PlacesRankBy.Distance"/> is specified, one or more of
     /// <see cref="Keyword"/>, <see cref="Name"/>, or <see cref="Type"/> is required.
     /// </summary>
-    public PlacesRankBy RankBy { get; set; }
+    public PlacesRankBy? RankBy { get; set; }
 
     /// <summary>
     /// Gets or sets the type of the places that should be returned by the search.
     /// </summary>
-    public string Type { get; set; }
+    public string? Type { get; set; }
 
     /// <summary>
     /// Gets or sets a page token from a from a previously run search to return the next 20 results. Setting a
     /// <see cref="PageToken"/> parameter will execute a search with the same parameters used previously — all
     /// parameters other than <see cref="PageToken"/> will be ignored.
     /// </summary>
-    public string PageToken { get; set; }
+    public string? PageToken { get; set; }
 
-    public List<string> Fields { get; set; }
+    public List<string> Fields { get; set; } = new();
 
     #endregion
 
@@ -154,15 +154,15 @@ public class PlacesNearbySearchOptions : IHttpRequestOptions {
 
         // Append the language if specified
         if (Radius > 0) query.Add("radius", Radius);
-        if (string.IsNullOrWhiteSpace(Keyword) == false) query.Add("keyword", Keyword);
-        if (string.IsNullOrWhiteSpace(Language) == false) query.Add("language", Language);
-        if (MinPrice != PlacesPriceLevel.Unspecified) query.Add("minprice", (int)MinPrice - 1);
-        if (MaxPrice != PlacesPriceLevel.Unspecified) query.Add("maxprice", (int)MaxPrice - 1);
-        if (string.IsNullOrWhiteSpace(Name) == false) query.Add("name", Name);
-        query.Add("rankby", StringUtils.ToCamelCase(RankBy));
-        if (string.IsNullOrWhiteSpace(Type) == false) query.Add("type", Type);
-        if (string.IsNullOrWhiteSpace(PageToken) == false) query.Add("pagetoken", PageToken);
-        if (Fields != null && Fields.Count > 0) query.Add("fields", string.Join(",", Fields));
+        if (!string.IsNullOrWhiteSpace(Keyword)) query.Add("keyword", Keyword!);
+        if (!string.IsNullOrWhiteSpace(Language)) query.Add("language", Language!);
+        if (MinPrice is not null) query.Add("minprice", (int) MinPrice.Value - 1);
+        if (MaxPrice is not null) query.Add("maxprice", (int) MaxPrice.Value - 1);
+        if (!string.IsNullOrWhiteSpace(Name)) query.Add("name", Name!);
+        if (RankBy is not null) query.Add("rankby", StringUtils.ToCamelCase(RankBy));
+        if (!string.IsNullOrWhiteSpace(Type)) query.Add("type", Type!);
+        if (!string.IsNullOrWhiteSpace(PageToken)) query.Add("pagetoken", PageToken!);
+        if (Fields.Count > 0) query.Add("fields", string.Join(",", Fields));
 
         // Create the request
         return HttpRequest.Get("https://maps.googleapis.com/maps/api/place/nearbysearch/json", query);

@@ -23,13 +23,13 @@ public class PlacesTextSearchOptions : IHttpRequestOptions {
     /// order the results based on their perceived relevance. This parameter becomes optional if the
     /// <see cref="Type"/> parameter is also used in the search request.
     /// </summary>
-    public string Query { get; set; }
+    public string? Query { get; set; }
 
     /// <summary>
     /// Optional: Gets or sets the latitude/longitude around which to retrieve place information. If you specify a
     /// <see cref="Location"/> parameter, you must also specify a <see cref="Radius"/> parameter.
     /// </summary>
-    public IPoint Location { get; set; }
+    public IPoint? Location { get; set; }
 
     /// <summary>
     /// Required: Gets or sets the distance (in meters) within which to bias place results. The maximum allowed
@@ -37,36 +37,36 @@ public class PlacesTextSearchOptions : IHttpRequestOptions {
     /// outside of the search circle; however, prominent results from outside of the search radius may be included.
     /// </summary>
     [ValueRange(0, 50000)]
-    public int Radius { get; set; }
+    public int? Radius { get; set; }
 
     /// <summary>
     /// Optional: Gets or sets the language code, indicating in which language the results should be returned, if
     /// possible. See the <a href="https://developers.google.com/maps/faq#languagesupport">list of supported
     /// languages</a> and their codes.
     /// </summary>
-    public string Language { get; set; }
+    public string? Language { get; set; }
 
     /// <summary>
     /// Optional: Gets or sets the minimum price level of the places that should be returned by the search.
     /// </summary>
-    public PlacesPriceLevel MinPrice { get; set; }
+    public PlacesPriceLevel? MinPrice { get; set; }
 
     /// <summary>
     /// Optional: Gets or sets the maximum price level of the places that should be returned by the search.
     /// </summary>
-    public PlacesPriceLevel MaxPrice { get; set; }
+    public PlacesPriceLevel? MaxPrice { get; set; }
 
     /// <summary>
     /// Gets or sets the type of the places that should be returned by the search.
     /// </summary>
-    public string Type { get; set; }
+    public string? Type { get; set; }
 
     /// <summary>
     /// Gets or sets a page token from a from a previously run search to return the next 20 results. Setting a
     /// <see cref="PageToken"/> parameter will execute a search with the same parameters used previously — all
     /// parameters other than <see cref="PageToken"/> will be ignored.
     /// </summary>
-    public string PageToken { get; set; }
+    public string? PageToken { get; set; }
 
     #endregion
 
@@ -75,16 +75,13 @@ public class PlacesTextSearchOptions : IHttpRequestOptions {
     /// <summary>
     /// Initializes a new instance with default options.
     /// </summary>
-    public PlacesTextSearchOptions() {
-        Location = new Point();
-    }
+    public PlacesTextSearchOptions() { }
 
     /// <summary>
     /// Initializes a new instance based on the specified <paramref name="query"/>.
     /// </summary>
     public PlacesTextSearchOptions(string query) {
         Query = query;
-        Location = new Point();
     }
 
     /// <summary>
@@ -127,14 +124,14 @@ public class PlacesTextSearchOptions : IHttpRequestOptions {
 
         // Initialize the query string
         IHttpQueryString query = new HttpQueryString();
-        if (string.IsNullOrWhiteSpace(Query) == false) query.Add("query", Query);
+        if (!string.IsNullOrWhiteSpace(Query)) query.Add("query", Query!);
         query.Add("location", string.Format(CultureInfo.InvariantCulture, "{0},{1}", Location.Latitude, Location.Longitude));
         if (Radius > 0) query.Add("radius", Radius);
-        if (string.IsNullOrWhiteSpace(Language) == false) query.Add("language", Language);
-        if (MinPrice != PlacesPriceLevel.Unspecified) query.Add("minprice", (int)MinPrice - 1);
-        if (MaxPrice != PlacesPriceLevel.Unspecified) query.Add("maxprice", (int)MaxPrice - 1);
-        if (string.IsNullOrWhiteSpace(Type) == false) query.Add("type", Type);
-        if (string.IsNullOrWhiteSpace(PageToken) == false) query.Add("pagetoken", PageToken);
+        if (!string.IsNullOrWhiteSpace(Language)) query.Add("language", Language!);
+        if (MinPrice is not null) query.Add("minprice", (int) MinPrice.Value - 1);
+        if (MaxPrice is not null) query.Add("maxprice", (int) MaxPrice.Value - 1);
+        if (!string.IsNullOrWhiteSpace(Type)) query.Add("type", Type!);
+        if (!string.IsNullOrWhiteSpace(PageToken)) query.Add("pagetoken", PageToken!);
 
         // Create the request
         return HttpRequest.Get("https://maps.googleapis.com/maps/api/place/textsearch/json", query);

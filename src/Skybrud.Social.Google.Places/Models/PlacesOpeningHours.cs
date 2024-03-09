@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models;
@@ -37,7 +37,7 @@ public class PlacesOpeningHours : GoogleObject {
     /// <param name="obj">The instance of <see cref="JObject"/> to parse.</param>
     /// <returns>An instance of <see cref="PlacesOpeningHours"/>.</returns>
     public static PlacesOpeningHours Parse(JObject obj) {
-        return obj == null ? null : new PlacesOpeningHours(obj);
+        return new PlacesOpeningHours(obj);
     }
 
     #endregion

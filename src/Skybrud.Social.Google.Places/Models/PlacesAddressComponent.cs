@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models;
@@ -31,8 +31,8 @@ public class PlacesAddressComponent : GoogleObject {
     #region Constructors
 
     private PlacesAddressComponent(JObject obj) : base(obj) {
-        LongName = obj.GetString("long_name");
-        ShortName = obj.GetString("short_name");
+        LongName = obj.GetString("long_name")!;
+        ShortName = obj.GetString("short_name")!;
         Types = obj.GetStringArray("types");
     }
 
@@ -46,7 +46,7 @@ public class PlacesAddressComponent : GoogleObject {
     /// <param name="obj">The instance of <see cref="JObject"/> representing the address component.</param>
     /// <returns>An instance of <see cref="PlacesAddressComponent"/>.</returns>
     public static PlacesAddressComponent Parse(JObject obj) {
-        return obj == null ? null : new PlacesAddressComponent(obj);
+        return new PlacesAddressComponent(obj);
     }
 
     #endregion

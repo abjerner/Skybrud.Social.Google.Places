@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models;
@@ -23,7 +23,7 @@ public class PlacesOpeningHoursPeriodItem : GoogleObject {
 
     private PlacesOpeningHoursPeriodItem(JObject obj) : base(obj) {
         Day = obj.GetEnum<DayOfWeek>("day");
-        Time = TimeSpan.ParseExact(obj.GetString("time"), "hhmm", CultureInfo.InvariantCulture);
+        Time = TimeSpan.ParseExact(obj.GetString("time")!, "hhmm", CultureInfo.InvariantCulture);
     }
 
     #endregion
@@ -36,7 +36,7 @@ public class PlacesOpeningHoursPeriodItem : GoogleObject {
     /// <param name="obj">The instance of <see cref="JObject"/> to parse.</param>
     /// <returns>An instance of <see cref="PlacesOpeningHoursPeriodItem"/>.</returns>
     public static PlacesOpeningHoursPeriodItem Parse(JObject obj) {
-        return obj == null ? null : new PlacesOpeningHoursPeriodItem(obj);
+        return new PlacesOpeningHoursPeriodItem(obj);
     }
 
     #endregion

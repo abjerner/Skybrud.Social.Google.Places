@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models;
@@ -29,8 +29,8 @@ public class PlacesGeometry : GoogleObject {
     #region Constructors
 
     private PlacesGeometry(JObject obj) : base(obj) {
-        Location = obj.GetObject("location", PlacesGeometryLocation.Parse);
-        Viewport = obj.GetObject("viewport", PlacesGeometryViewport.Parse);
+        Location = obj.GetObject("location", PlacesGeometryLocation.Parse)!;
+        Viewport = obj.GetObject("viewport", PlacesGeometryViewport.Parse)!;
     }
 
     #endregion
@@ -43,7 +43,7 @@ public class PlacesGeometry : GoogleObject {
     /// <param name="obj">The instance of <see cref="JObject"/> representing the geometry object.</param>
     /// <returns>An instance of <see cref="PlacesGeometry"/>.</returns>
     public static PlacesGeometry Parse(JObject obj) {
-        return obj == null ? null : new PlacesGeometry(obj);
+        return new PlacesGeometry(obj);
     }
 
     #endregion
