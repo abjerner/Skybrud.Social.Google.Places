@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Social.Google.Models;
 
@@ -24,7 +25,7 @@ public class PlacesAddressComponent : GoogleObject {
     /// <summary>
     /// Gets an array of tags/keywords that describe the type of the address component.
     /// </summary>
-    public string[] Types { get; }
+    public IReadOnlyList<string> Types { get; }
 
     #endregion
 

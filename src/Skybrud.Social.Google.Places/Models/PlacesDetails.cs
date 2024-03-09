@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Newtonsoft.Extensions;
@@ -19,7 +20,7 @@ public class PlacesDetails : GoogleObject {
     /// street number, <c>8th Avenue</c> (the route), <c>New York</c> (the city) and <c>NY</c>
     /// (the US state).
     /// </summary>
-    public PlacesAddressComponent[] AddressComponents { get; }
+    public IReadOnlyList<PlacesAddressComponent> AddressComponents { get; }
 
     /// <summary>
     /// Gets a representation of the place's address in the <strong>adr microformat</strong>.
@@ -136,7 +137,7 @@ public class PlacesDetails : GoogleObject {
     /// <summary>
     /// Gets an array of feature types describing the given result.
     /// </summary>
-    public string[] Types { get; }
+    public IReadOnlyList<string> Types { get; }
 
     /// <summary>
     /// Gets the URL of the official Google page for this place. This will be the Google-owned page that contains

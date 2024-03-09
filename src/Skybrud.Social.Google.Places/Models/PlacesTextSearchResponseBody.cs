@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Social.Google.Models;
@@ -19,7 +20,7 @@ public class PlacesTextSearchResponseBody : GoogleObject {
     /// <summary>
     /// Gets an array of places returned in the response.
     /// </summary>
-    public PlacesDetails[] Results { get; }
+    public IReadOnlyList<PlacesDetails> Results { get; }
 
     /// <summary>
     /// Gets the status of the response from the Places API.

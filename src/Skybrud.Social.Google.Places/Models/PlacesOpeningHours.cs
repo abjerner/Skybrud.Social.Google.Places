@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Social.Google.Models;
 
@@ -13,9 +14,9 @@ public class PlacesOpeningHours : GoogleObject {
 
     public bool IsOpenNow { get; }
 
-    public PlacesOpeningHoursPeriod[] Periods { get; }
+    public IReadOnlyList<PlacesOpeningHoursPeriod> Periods { get; }
 
-    public string[] WeekdayText { get; }
+    public IReadOnlyList<string> WeekdayText { get; }
 
     #endregion
 
