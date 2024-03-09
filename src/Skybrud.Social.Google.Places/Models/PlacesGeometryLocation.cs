@@ -3,49 +3,47 @@ using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Essentials.Maps.Geometry;
 using Skybrud.Social.Google.Models;
 
-namespace Skybrud.Social.Google.Places.Models {
+namespace Skybrud.Social.Google.Places.Models;
+
+/// <summary>
+/// Class representing a point within a <see cref="PlacesDetails"/>.
+/// </summary>
+public class PlacesGeometryLocation : GoogleObject, IPoint {
+
+    #region Properties
 
     /// <summary>
-    /// Class representing a point within a <see cref="PlacesDetails"/>.
+    /// Gets the latitude of the point.
     /// </summary>
-    public class PlacesGeometryLocation : GoogleObject, IPoint {
+    public double Latitude { get; }
 
-        #region Properties
+    /// <summary>
+    /// gets the longitude of the point.
+    /// </summary>
+    public double Longitude { get; }
 
-        /// <summary>
-        /// Gets the latitude of the point.
-        /// </summary>
-        public double Latitude { get; }
+    #endregion
 
-        /// <summary>
-        /// gets the longitude of the point.
-        /// </summary>
-        public double Longitude { get; }
+    #region Constructors
 
-        #endregion
-
-        #region Constructors
-
-        private PlacesGeometryLocation(JObject obj) : base(obj) {
-            Latitude = obj.GetDouble("lat");
-            Longitude = obj.GetDouble("lng");
-        }
-
-        #endregion
-
-        #region Static methods
-
-        /// <summary>
-        /// Gets an instance of <see cref="PlacesGeometryLocation"/> from the specified <paramref name="obj"/>.
-        /// </summary>
-        /// <param name="obj">The instance of <see cref="JObject"/> representing the location.</param>
-        /// <returns>An instance of <see cref="PlacesGeometryLocation"/>.</returns>
-        public static PlacesGeometryLocation Parse(JObject obj) {
-            return obj == null ? null : new PlacesGeometryLocation(obj);
-        }
-
-        #endregion
-
+    private PlacesGeometryLocation(JObject obj) : base(obj) {
+        Latitude = obj.GetDouble("lat");
+        Longitude = obj.GetDouble("lng");
     }
+
+    #endregion
+
+    #region Static methods
+
+    /// <summary>
+    /// Gets an instance of <see cref="PlacesGeometryLocation"/> from the specified <paramref name="obj"/>.
+    /// </summary>
+    /// <param name="obj">The instance of <see cref="JObject"/> representing the location.</param>
+    /// <returns>An instance of <see cref="PlacesGeometryLocation"/>.</returns>
+    public static PlacesGeometryLocation Parse(JObject obj) {
+        return obj == null ? null : new PlacesGeometryLocation(obj);
+    }
+
+    #endregion
 
 }

@@ -4,57 +4,55 @@ using Skybrud.Essentials.Http;
 using Skybrud.Social.Google.Places.Exceptions;
 using Skybrud.Essentials.Json.Extensions;
 
-namespace Skybrud.Social.Google.Places.Responses {
+namespace Skybrud.Social.Google.Places.Responses;
+
+/// <summary>
+/// Class representing a response from the Google Places API.
+/// </summary>
+public class PlacesResponse : HttpResponseBase {
+
+    #region Constructors
 
     /// <summary>
-    /// Class representing a response from the Google Places API.
+    /// Initializes a new instance based on the specified <paramref name="response"/>.
     /// </summary>
-    public class PlacesResponse : HttpResponseBase {
+    /// <param name="response">The underlying raw response the instance should be based on.</param>
+    protected PlacesResponse(IHttpResponse response) : base(response) {
 
-        #region Constructors
+        // Skip error checking if the server responds with an OK status code
+        if (response.StatusCode == HttpStatusCode.OK) return;
 
-        /// <summary>
-        /// Initializes a new instance based on the specified <paramref name="response"/>.
-        /// </summary>
-        /// <param name="response">The underlying raw response the instance should be based on.</param>
-        protected PlacesResponse(IHttpResponse response) : base(response) {
+        JObject obj = ParseJsonObject(response.Body);
 
-            // Skip error checking if the server responds with an OK status code
-            if (response.StatusCode == HttpStatusCode.OK) return;
+        JObject error = obj.GetObject("error");
 
-            JObject obj = ParseJsonObject(response.Body);
+        int code = error.GetInt32("code");
+        string message = error.GetString("message");
 
-            JObject error = obj.GetObject("error");
+        // TODO: Parse "errors"
 
-            int code = error.GetInt32("code");
-            string message = error.GetString("message");
-
-            // TODO: Parse "errors"
-
-            throw new PlacesHttpException(response, code, message);
-
-        }
-
-        #endregion
+        throw new PlacesHttpException(response, code, message);
 
     }
 
+    #endregion
+
+}
+
+/// <summary>
+/// Class representing a response from the Google Places API.
+/// </summary>
+public class PlacesResponse<T> : PlacesResponse {
+
     /// <summary>
-    /// Class representing a response from the Google Places API.
+    /// Gets the body of the response.
     /// </summary>
-    public class PlacesResponse<T> : PlacesResponse {
+    public T Body { get; protected set; }
 
-        /// <summary>
-        /// Gets the body of the response.
-        /// </summary>
-        public T Body { get; protected set; }
-
-        /// <summary>
-        /// Initializes a new instance based on the specified <paramref name="response"/>.
-        /// </summary>
-        /// <param name="response">The underlying raw response the instance should be based on.</param>
-        protected PlacesResponse(IHttpResponse response) : base(response) { }
-
-    }
+    /// <summary>
+    /// Initializes a new instance based on the specified <paramref name="response"/>.
+    /// </summary>
+    /// <param name="response">The underlying raw response the instance should be based on.</param>
+    protected PlacesResponse(IHttpResponse response) : base(response) { }
 
 }

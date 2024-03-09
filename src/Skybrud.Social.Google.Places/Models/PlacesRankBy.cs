@@ -1,8 +1,6 @@
-﻿namespace Skybrud.Social.Google.Places.Models {
+﻿namespace Skybrud.Social.Google.Places.Models;
 
-    public enum PlacesRankBy {
-        Prominence,
-        Distance
-    }
-
+public enum PlacesRankBy {
+    Prominence,
+    Distance
 }

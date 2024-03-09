@@ -2,49 +2,47 @@
 using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Social.Google.Models;
 
-namespace Skybrud.Social.Google.Places.Models {
+namespace Skybrud.Social.Google.Places.Models;
+
+/// <summary>
+/// Class representing the viewport of a <see cref="PlacesDetails"/>.
+/// </summary>
+public class PlacesGeometryViewport : GoogleObject {
+
+    #region Properties
 
     /// <summary>
-    /// Class representing the viewport of a <see cref="PlacesDetails"/>.
+    /// Gets the north east point of the viewport.
     /// </summary>
-    public class PlacesGeometryViewport : GoogleObject {
+    public PlacesGeometryLocation NorthEast { get; }
 
-        #region Properties
+    /// <summary>
+    /// Gets the south west point of the viewport.
+    /// </summary>
+    public PlacesGeometryLocation SouthWest { get; }
 
-        /// <summary>
-        /// Gets the north east point of the viewport.
-        /// </summary>
-        public PlacesGeometryLocation NorthEast { get; }
+    #endregion
 
-        /// <summary>
-        /// Gets the south west point of the viewport.
-        /// </summary>
-        public PlacesGeometryLocation SouthWest { get; }
+    #region Constructors
 
-        #endregion
-
-        #region Constructors
-
-        private PlacesGeometryViewport(JObject obj) : base(obj) {
-            NorthEast = obj.GetObject("northeast", PlacesGeometryLocation.Parse);
-            SouthWest = obj.GetObject("southwest", PlacesGeometryLocation.Parse);
-        }
-
-        #endregion
-
-        #region Static methods
-
-        /// <summary>
-        /// Parses the specified <paramref name="obj"/> into an instance of <see cref="PlacesGeometryViewport"/>.
-        /// </summary>
-        /// <param name="obj">The instance of <see cref="JObject"/> to parse.</param>
-        /// <returns>An instance of <see cref="PlacesGeometryViewport"/>.</returns>
-        public static PlacesGeometryViewport Parse(JObject obj) {
-            return obj == null ? null : new PlacesGeometryViewport(obj);
-        }
-
-        #endregion
-
+    private PlacesGeometryViewport(JObject obj) : base(obj) {
+        NorthEast = obj.GetObject("northeast", PlacesGeometryLocation.Parse);
+        SouthWest = obj.GetObject("southwest", PlacesGeometryLocation.Parse);
     }
+
+    #endregion
+
+    #region Static methods
+
+    /// <summary>
+    /// Parses the specified <paramref name="obj"/> into an instance of <see cref="PlacesGeometryViewport"/>.
+    /// </summary>
+    /// <param name="obj">The instance of <see cref="JObject"/> to parse.</param>
+    /// <returns>An instance of <see cref="PlacesGeometryViewport"/>.</returns>
+    public static PlacesGeometryViewport Parse(JObject obj) {
+        return obj == null ? null : new PlacesGeometryViewport(obj);
+    }
+
+    #endregion
 
 }
