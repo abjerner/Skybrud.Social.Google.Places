@@ -64,7 +64,7 @@ namespace Skybrud.Social.Google.Places.Options {
         }
 
         #endregion
-    
+
     }
 
 }

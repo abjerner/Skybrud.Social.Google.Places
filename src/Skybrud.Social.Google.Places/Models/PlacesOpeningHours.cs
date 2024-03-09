@@ -3,12 +3,12 @@ using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models {
-    
+
     /// <summary>
     /// Class describing the opening hours of a Google place.
     /// </summary>
-    public class PlacesOpeningHours : GoogleApiObject {
-        
+    public class PlacesOpeningHours : GoogleObject {
+
         #region Properties
 
         public bool IsOpenNow { get; }
@@ -28,9 +28,9 @@ namespace Skybrud.Social.Google.Places.Models {
         }
 
         #endregion
-        
+
         #region Static methods
-        
+
         /// <summary>
         /// Parses specified <paramref name="obj"/> into an instance of <see cref="PlacesOpeningHours"/>.
         /// </summary>

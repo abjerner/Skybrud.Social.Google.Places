@@ -7,8 +7,8 @@ namespace Skybrud.Social.Google.Places.Models {
     /// <summary>
     /// Class partially describing the opening hours of a Google place.
     /// </summary>
-    public class PlacesOpeningHoursPeriod : GoogleApiObject {
-        
+    public class PlacesOpeningHoursPeriod : GoogleObject {
+
         #region Properties
 
         public PlacesOpeningHoursPeriodItem Open { get; }
@@ -29,9 +29,9 @@ namespace Skybrud.Social.Google.Places.Models {
         }
 
         #endregion
-        
+
         #region Static methods
-        
+
         /// <summary>
         /// Parses specified <paramref name="obj"/> into an instance of <see cref="PlacesOpeningHoursPeriod"/>.
         /// </summary>

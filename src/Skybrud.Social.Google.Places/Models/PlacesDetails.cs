@@ -9,7 +9,7 @@ namespace Skybrud.Social.Google.Places.Models {
     /// <summary>
     /// Class representing details about a place as received from the Google Places API.
     /// </summary>
-    public class PlacesDetails : GoogleApiObject {
+    public class PlacesDetails : GoogleObject {
 
         #region Properties
 
@@ -161,7 +161,7 @@ namespace Skybrud.Social.Google.Places.Models {
         public string Website { get; }
 
         /// <summary>
-        /// Gets whether a website was specified for the place (whether the <see cref="Website"/> property has a value). 
+        /// Gets whether a website was specified for the place (whether the <see cref="Website"/> property has a value).
         /// </summary>
         public bool HasWebsite => string.IsNullOrWhiteSpace(Website) == false;
 

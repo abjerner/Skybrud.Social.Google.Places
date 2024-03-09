@@ -1,5 +1,5 @@
 namespace Skybrud.Social.Google.Places.Models {
-    
+
     /// <summary>
     /// Represents the status code of the response received in the Google Places API.
     /// </summary>

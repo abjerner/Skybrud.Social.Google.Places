@@ -7,7 +7,7 @@ namespace Skybrud.Social.Google.Places.Models {
     /// <summary>
     /// Class representing an address component of a <see cref="PlacesDetails"/>.
     /// </summary>
-    public class PlacesAddressComponent : GoogleApiObject {
+    public class PlacesAddressComponent : GoogleObject {
 
         #region Properties
 

@@ -28,7 +28,7 @@ namespace Skybrud.Social.Google.Places.Options {
         /// <summary>
         /// Required: Gets or sets the longitude around which to retrieve place information.
         /// </summary>
-        [ValueRange(-90, +90)] 
+        [ValueRange(-90, +90)]
         public double Longitude { get; set; }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Skybrud.Social.Google.Places.Options {
         /// Gets or sets a term to be matched against all content that Google has indexed for this place. Equivalent to
         /// <see cref="Keyword"/>. The <see cref="Name"/> field is no longer restricted to place names. Values in this
         /// field are combined with values in the <see cref="Keyword"/> field and passed as part of the same search string.
-        /// 
+        ///
         /// Google recommends using only the <see cref="Keyword"/> parameter for all search terms.
         /// </summary>
         public string Name { get; set; }
@@ -71,11 +71,11 @@ namespace Skybrud.Social.Google.Places.Options {
         /// <summary>
         /// Specifies the order in which results are listed. Note that <see cref="RankBy"/> must not be included if
         /// <see cref="Radius"/> is specified. Possible values are:
-        /// 
+        ///
         /// <strong>prominence</strong> (default). This option sorts results based on their importance. Ranking will
         /// favor prominent places within the specified area. Prominence can be affected by a place's ranking in
         /// Google's index, global popularity, and other factors.
-        /// 
+        ///
         /// <strong>distance</strong>. This option biases search results in ascending order by their distance from the
         /// specified location. When <see cref="PlacesRankBy.Distance"/> is specified, one or more of
         /// <see cref="Keyword"/>, <see cref="Name"/>, or <see cref="Type"/> is required.
@@ -144,7 +144,7 @@ namespace Skybrud.Social.Google.Places.Options {
         /// <inheritdoc />
         public IHttpRequest GetRequest() {
 
-            // Make sure either Latitude or Longitude are specified ("0,0" is considered invalid) 
+            // Make sure either Latitude or Longitude are specified ("0,0" is considered invalid)
             if (Math.Abs(Latitude) < double.Epsilon && Math.Abs(Longitude) < double.Epsilon) throw new PropertyNotSetException(nameof(Latitude));
 
             // Initialize the query string
@@ -170,7 +170,7 @@ namespace Skybrud.Social.Google.Places.Options {
         }
 
         #endregion
-    
+
     }
 
 }

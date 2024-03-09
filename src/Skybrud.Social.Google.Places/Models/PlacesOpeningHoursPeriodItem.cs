@@ -5,11 +5,11 @@ using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models {
-    
+
     /// <summary>
     /// Class partially describing the opening hours of a Google place.
     /// </summary>
-    public class PlacesOpeningHoursPeriodItem : GoogleApiObject {
+    public class PlacesOpeningHoursPeriodItem : GoogleObject {
 
         #region Properties
 

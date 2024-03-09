@@ -7,7 +7,7 @@ using Skybrud.Social.Google.OAuth;
 using Skybrud.Social.Google.Places.Options;
 
 namespace Skybrud.Social.Google.Places.Http {
-    
+
     /// <summary>
     /// HTTP client used for communicationg with the Google Places API.
     /// </summary>
@@ -17,7 +17,7 @@ namespace Skybrud.Social.Google.Places.Http {
     /// <see>
     ///     <cref>https://developers.google.com/places/web-service/search</cref>
     /// </see>
-    public class PlacesHttpClient : GoogleApiHttpClientBase {
+    public class PlacesHttpClient : GoogleHttpClientBase {
 
         #region Constructors
 

@@ -5,8 +5,8 @@ using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models {
 
-    public class PlacesNearbySearchResponseBody : GoogleApiObject {
-        
+    public class PlacesNearbySearchResponseBody : GoogleObject {
+
         #region Properties
 
         public string NextPageToken { get; private set; }
@@ -28,13 +28,13 @@ namespace Skybrud.Social.Google.Places.Models {
         #region Constructors
 
         private PlacesNearbySearchResponseBody(JObject obj) : base(obj) {
-            NextPageToken = obj.GetString("next_page_token");    
+            NextPageToken = obj.GetString("next_page_token");
             Results = obj.GetArrayItems("results", PlacesDetails.Parse);
             Status = obj.GetEnum<PlacesResponseStatusCode>("status");
         }
 
         #endregion
-        
+
         #region Static methods
 
         /// <summary>

@@ -7,7 +7,7 @@ namespace Skybrud.Social.Google.Places.Models {
     /// <summary>
     /// Class representing the viewport of a <see cref="PlacesDetails"/>.
     /// </summary>
-    public class PlacesGeometryViewport : GoogleApiObject {
+    public class PlacesGeometryViewport : GoogleObject {
 
         #region Properties
 
@@ -31,7 +31,7 @@ namespace Skybrud.Social.Google.Places.Models {
         }
 
         #endregion
-        
+
         #region Static methods
 
         /// <summary>

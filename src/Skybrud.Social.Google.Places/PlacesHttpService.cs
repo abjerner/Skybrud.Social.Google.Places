@@ -16,7 +16,7 @@ namespace Skybrud.Social.Google.Places {
     /// <see>
     ///     <cref>https://developers.google.com/places/web-service/search</cref>
     /// </see>
-    public class PlacesHttpService : GoogleApiServiceBase {
+    public class PlacesHttpService : GoogleHttpServiceBase {
 
         #region Properties
 
@@ -33,7 +33,7 @@ namespace Skybrud.Social.Google.Places {
         /// Initializes a new instance based on the specified Google <paramref name="service"/>.
         /// </summary>
         /// <param name="service">The Google service to be used.</param>
-        public PlacesHttpService(GoogleService service) : base(service) { }
+        public PlacesHttpService(GoogleHttpService service) : base(service) { }
 
         #endregion
 

@@ -86,7 +86,7 @@ namespace Skybrud.Social.Google.Places.Options {
             Query = query;
             Location = new Point();
         }
-        
+
         /// <summary>
         /// Initializes a new instance based on the specified <paramref name="query"/>, <paramref name="latitude"/>, <paramref name="longitude"/> and <paramref name="radius"/>.
         /// </summary>
@@ -111,9 +111,9 @@ namespace Skybrud.Social.Google.Places.Options {
             Location = location;
             Radius = radius;
         }
-        
+
         #endregion
-        
+
 
         #region Member methods
 
@@ -122,7 +122,7 @@ namespace Skybrud.Social.Google.Places.Options {
 
             if (Location == null) throw new PropertyNotSetException(nameof(Location));
 
-            // Make sure either Latitude or Longitude are specified ("0,0" is considered invalid) 
+            // Make sure either Latitude or Longitude are specified ("0,0" is considered invalid)
             if (Math.Abs(Location.Latitude) < double.Epsilon && Math.Abs(Location.Longitude) < double.Epsilon) throw new PropertyNotSetException(nameof(Location.Latitude));
 
             // Initialize the query string
@@ -142,7 +142,7 @@ namespace Skybrud.Social.Google.Places.Options {
         }
 
         #endregion
-    
+
     }
 
 }

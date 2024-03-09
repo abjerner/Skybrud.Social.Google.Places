@@ -4,8 +4,8 @@ using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models {
 
-    public class PlacesTextSearchResponseBody : GoogleApiObject {
-        
+    public class PlacesTextSearchResponseBody : GoogleObject {
+
         #region Properties
 
         public string NextPageToken { get; }
@@ -29,15 +29,15 @@ namespace Skybrud.Social.Google.Places.Models {
         #region Constructors
 
         private PlacesTextSearchResponseBody(JObject obj) : base(obj) {
-            NextPageToken = obj.GetString("next_page_token");    
+            NextPageToken = obj.GetString("next_page_token");
             Results = obj.GetArrayItems("results", PlacesDetails.Parse);
             Status = obj.GetEnum<PlacesResponseStatusCode>("status");
         }
 
         #endregion
-        
+
         #region Static methods
-        
+
         /// <summary>
         /// Parses the specified <paramref name="obj"/> into an instance of <see cref="PlacesTextSearchResponseBody"/>.
         /// </summary>

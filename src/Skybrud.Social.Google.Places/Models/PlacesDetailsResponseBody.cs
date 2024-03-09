@@ -3,11 +3,11 @@ using Skybrud.Essentials.Json.Extensions;
 using Skybrud.Social.Google.Models;
 
 namespace Skybrud.Social.Google.Places.Models {
-    
+
     /// <summary>
     /// Class representing the response body of a response about a place in the Google Places API.
     /// </summary>
-    public class PlacesDetailsResponseBody : GoogleApiObject {
+    public class PlacesDetailsResponseBody : GoogleObject {
 
         #region Properties
 
@@ -31,7 +31,7 @@ namespace Skybrud.Social.Google.Places.Models {
         }
 
         #endregion
-        
+
         #region Static methods
 
         /// <summary>

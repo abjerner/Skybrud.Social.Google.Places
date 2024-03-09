@@ -8,7 +8,7 @@ namespace Skybrud.Social.Google.Places.Models {
     /// <summary>
     /// Class representing a point within a <see cref="PlacesDetails"/>.
     /// </summary>
-    public class PlacesGeometryLocation : GoogleApiObject, IPoint {
+    public class PlacesGeometryLocation : GoogleObject, IPoint {
 
         #region Properties
 

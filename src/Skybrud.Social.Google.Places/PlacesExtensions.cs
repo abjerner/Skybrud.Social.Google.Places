@@ -24,7 +24,7 @@ namespace Skybrud.Social.Google.Places {
         /// </remarks>
         public static PlacesHttpClient Places(this GoogleOAuthClient client) {
             if (client == null) throw new ArgumentNullException(nameof(client));
-            return client.GetApiClient(() => new PlacesHttpClient(client));
+            return client.GetHttpClient(() => new PlacesHttpClient(client));
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Skybrud.Social.Google.Places {
         /// <param name="service">The Google service.</param>
         /// <returns>An instance of <see cref="PlacesHttpService"/>.</returns>
         /// <remarks>
-        /// The <see cref="GoogleService"/> instance keeps an internal registry ensuring that calling this method
+        /// The <see cref="GoogleHttpService"/> instance keeps an internal registry ensuring that calling this method
         /// multiple times for the same <paramref name="service"/> will result in the same instance of
         /// <see cref="PlacesHttpService"/>.
         ///
@@ -41,9 +41,9 @@ namespace Skybrud.Social.Google.Places {
         /// called, while any subsequent calls to this method will result in the instance saved registry being
         /// returned.
         /// </remarks>
-        public static PlacesHttpService Places(this GoogleService service) {
+        public static PlacesHttpService Places(this GoogleHttpService service) {
             if (service == null) throw new ArgumentNullException(nameof(service));
-            return service.GetApiService(() => new PlacesHttpService(service));
+            return service.GetHttpService(() => new PlacesHttpService(service));
         }
 
     }
